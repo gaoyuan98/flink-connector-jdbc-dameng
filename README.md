@@ -78,8 +78,10 @@ CREATE TABLE source (
 
 ## 在 Flink SQL CLI 中查询数据
 SELECT * FROM source;
+
 ## 筛选数据，比如 查询年龄大于 30 的用户：
 SELECT id, name FROM source WHERE age > 30;
+
 ## 插入数据
 INSERT INTO source (id, name, age) VALUES (3, '33', 33);
 ```
