@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.apache.flink</groupId>
+  <artifactId>flink-connector-jdbc-dameng</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>flink-connector-jdbc-dameng</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <flink.version>1.16.0</flink.version>
+
+    <jackson-bom.version>2.13.4.20221013</jackson-bom.version>
+    <junit4.version>4.13.2</junit4.version>
+    <junit5.version>5.9.1</junit5.version>
+    <assertj.version>3.23.1</assertj.version>
+    <testcontainers.version>1.18.2</testcontainers.version>
+    <mockito.version>2.21.0</mockito.version>
+
+    <japicmp.referenceVersion>3.0.0-1.16</japicmp.referenceVersion>
+
+    <slf4j.version>1.7.36</slf4j.version>
+    <log4j.version>2.17.2</log4j.version>
+
+    <flink.parent.artifactId>flink-connector-jdbc-parent</flink.parent.artifactId>
+    <flink.forkCountITCase>1</flink.forkCountITCase>
+    <!-- These 2 properties should be removed together with upgrade of flink-connector-parent to 1.1.x -->
+    <flink.surefire.baseArgLine>-XX:+UseG1GC -Xms256m -XX:+IgnoreUnrecognizedVMOptions ${surefire.module.config}</flink.surefire.baseArgLine>
+    <surefire.module.config/>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.yourcompany.adapter</groupId>
+      <artifactId>db-adapter</artifactId>
+      <version>1.0.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/DmJdbcDriver8.jar</systemPath>
+    </dependency>
+
+
+    <dependency>
+      <groupId>com.yourcompany.adapter2</groupId>
+      <artifactId>db-adapter2</artifactId>
+      <version>1.0.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/flink-annotations-1.16.0.jar</systemPath>
+    </dependency>
+
+    <dependency>
+      <groupId>com.yourcompany.adapter3</groupId>
+      <artifactId>db-adapter3</artifactId>
+      <version>1.0.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/flink-connector-jdbc-3.1-SNAPSHOT.jar</systemPath>
+    </dependency>
+
+    <dependency>
+      <groupId>com.yourcompany.adapter4</groupId>
+      <artifactId>db-adapter4</artifactId>
+      <version>1.0.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/flink-table-common-1.16.0.jar</systemPath>
+    </dependency>
+  </dependencies>
+
+
+  <build>
+    <plugins>
+
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+<!--
+      <plugin>
+        &lt;!&ndash; activate API compatibility checks &ndash;&gt;
+        <groupId>io.github.zentol.japicmp</groupId>
+        <artifactId>japicmp-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <inherited>false</inherited>
+      </plugin>
+
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>-->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <!-- 合并 META-INF/services 下的文件 -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+<!--
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.commonjava.maven.plugins</groupId>
+        <artifactId>directory-maven-plugin</artifactId>
+      </plugin>-->
+    </plugins>
+  </build>
+</project>
