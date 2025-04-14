@@ -96,3 +96,6 @@ INSERT INTO source (id, name, age) VALUES (3, '33', 33);
 <img src="./img/gzh01.png" />
 <br />
 
+
+# 更新记录
+1. 在1.3.26版本中,当瓶颈在__memset_sse2,hash_create_in_memobj,uflt_exec_start时,可添加hint ONE_GROUP_SIZE=32

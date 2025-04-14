@@ -91,7 +91,7 @@ public class Damengdialect  extends AbstractDialect {
         // if we can't divide schema and table-name is risky to call quoteIdentifier(tableName)
         // for example [tbo].[sometable] is ok but [tbo.sometable] is not
         String mergeQuery =
-                " MERGE INTO "
+                " MERGE /*+ONE_GROUP_SIZE(32) */ INTO "
                         + tableName
                         + " t "
                         + " USING (SELECT "
