@@ -1,6 +1,11 @@
 # flink-connector-jdbc-dameng
 # 介绍
-项目为实现flink通过flink-connector-jdbc的方式连接DM数据库进行数据的增删改查功能。
+项目为实现flink通过flink-connector-jdbc的方式连接DM数据库进行数据的增删改查功能提供桥接的jar包。
+
+# 操作步骤
+相关操作步骤以及实现思路参考文章如下，如有问题提issue
+1) Flink连接达梦数据库详细步骤：从驱动加载到SQL验证: https://mp.weixin.qq.com/s/TkR5_3qaMLDrGfPq0tUOzw
+2) 达梦数据库与Flink源码适配：驱动定制与类型转换核心机制:https://mp.weixin.qq.com/s/xiGNdFdwI2Jur-9t_tHNrQ
 
 # 编译项目
 拉取代码以后直接mvn编译即可
@@ -61,7 +66,7 @@ COMMIT;
 ```sql
 [root@localhost lib]# cd /data/flink_soft/flink-1.16.1/
 [root@localhost flink-1.16.1]#  ./bin/sql-client.sh embedded
-
+[original-flink-connector-jdbc-dameng-1.0-SNAPSHOT.jar](target%2Foriginal-flink-connector-jdbc-dameng-1.0-SNAPSHOT.jar)
 CREATE TABLE source (
     id INT,
     name STRING,
